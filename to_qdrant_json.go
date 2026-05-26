@@ -42,12 +42,12 @@ type QdrantRequest interface {
 type QdrantSearchRequest struct {
 	Vector         []float32           `json:"vector"`
 	Limit          int                 `json:"limit"`
-	Filter         *QdrantFilter       `json:"filter,omitempty"`
+	Filter         *QdrantFilter       `json:"filter,omitempty,omitzero"`
 	WithPayload    interface{}         `json:"with_payload,omitempty"` // true, false, or []string
-	WithVector     bool                `json:"with_vector,omitempty"`
-	ScoreThreshold *float32            `json:"score_threshold,omitempty"`
-	Offset         int                 `json:"offset,omitempty"`
-	Params         *QdrantSearchParams `json:"params,omitempty"`
+	WithVector     bool                `json:"with_vector,omitzero"`
+	ScoreThreshold *float32            `json:"score_threshold,omitempty,omitzero"`
+	Offset         int                 `json:"offset,omitzero"`
+	Params         *QdrantSearchParams `json:"params,omitempty,omitzero"`
 }
 
 // Implements VectorDBRequest interface (common)
@@ -94,17 +94,17 @@ type QdrantMatchCondition struct {
 
 // QdrantRangeCondition Qdrant range condition
 type QdrantRangeCondition struct {
-	Gt  *float64 `json:"gt,omitempty"`
-	Gte *float64 `json:"gte,omitempty"`
-	Lt  *float64 `json:"lt,omitempty"`
-	Lte *float64 `json:"lte,omitempty"`
+	Gt  *float64 `json:"gt,omitempty,omitzero"`
+	Gte *float64 `json:"gte,omitempty,omitzero"`
+	Lt  *float64 `json:"lt,omitempty,omitzero"`
+	Lte *float64 `json:"lte,omitempty,omitzero"`
 }
 
 // QdrantSearchParams Qdrant search parameters
 type QdrantSearchParams struct {
-	HnswEf      int  `json:"hnsw_ef,omitempty"`
-	Exact       bool `json:"exact,omitempty"`
-	IndexedOnly bool `json:"indexed_only,omitempty"`
+	HnswEf      int  `json:"hnsw_ef,omitzero"`
+	Exact       bool `json:"exact,omitzero"`
+	IndexedOnly bool `json:"indexed_only,omitzero"`
 }
 
 // QdrantRecommendRequest Qdrant recommend request structure (v0.10.0)
@@ -113,12 +113,12 @@ type QdrantRecommendRequest struct {
 	Positive       []int64             `json:"positive"`           // Positive sample ID list
 	Negative       []int64             `json:"negative,omitempty"` // Negative sample ID list (optional)
 	Limit          int                 `json:"limit"`
-	Filter         *QdrantFilter       `json:"filter,omitempty"`
+	Filter         *QdrantFilter       `json:"filter,omitempty,omitzero"`
 	WithPayload    interface{}         `json:"with_payload,omitempty"` // true, false, or []string
-	WithVector     bool                `json:"with_vector,omitempty"`
-	ScoreThreshold *float32            `json:"score_threshold,omitempty"`
-	Offset         int                 `json:"offset,omitempty"`
-	Params         *QdrantSearchParams `json:"params,omitempty"`
+	WithVector     bool                `json:"with_vector,omitzero"`
+	ScoreThreshold *float32            `json:"score_threshold,omitempty,omitzero"`
+	Offset         int                 `json:"offset,omitzero"`
+	Params         *QdrantSearchParams `json:"params,omitempty,omitzero"`
 	Strategy       string              `json:"strategy,omitempty"` // "average_vector" or "best_score"
 }
 
@@ -149,9 +149,9 @@ func (r *QdrantRecommendRequest) GetQdrantFilter() **QdrantFilter {
 type QdrantScrollRequest struct {
 	ScrollID    string        `json:"scroll_id,omitempty"`
 	Limit       int           `json:"limit,omitempty"`
-	Filter      *QdrantFilter `json:"filter,omitempty"`
+	Filter      *QdrantFilter `json:"filter,omitempty,omitzero"`
 	WithPayload interface{}   `json:"with_payload,omitempty"`
-	WithVector  bool          `json:"with_vector,omitempty"`
+	WithVector  bool          `json:"with_vector,omitzero"`
 }
 
 // Implements VectorDBRequest interface (common)
@@ -181,12 +181,12 @@ func (r *QdrantScrollRequest) GetQdrantFilter() **QdrantFilter {
 type QdrantDiscoverRequest struct {
 	Context        []int64             `json:"context"` // Context sample ID list
 	Limit          int                 `json:"limit"`
-	Filter         *QdrantFilter       `json:"filter,omitempty"`
+	Filter         *QdrantFilter       `json:"filter,omitempty,omitzero"`
 	WithPayload    interface{}         `json:"with_payload,omitempty"` // true, false, or []string
-	WithVector     bool                `json:"with_vector,omitempty"`
-	ScoreThreshold *float32            `json:"score_threshold,omitempty"`
-	Offset         int                 `json:"offset,omitempty"`
-	Params         *QdrantSearchParams `json:"params,omitempty"`
+	WithVector     bool                `json:"with_vector,omitzero"`
+	ScoreThreshold *float32            `json:"score_threshold,omitempty,omitzero"`
+	Offset         int                 `json:"offset,omitzero"`
+	Params         *QdrantSearchParams `json:"params,omitempty,omitzero"`
 }
 
 // Implements VectorDBRequest interface (common)
