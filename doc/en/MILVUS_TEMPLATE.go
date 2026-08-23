@@ -38,7 +38,8 @@
 package xb
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 
 	. "github.com/fndome/xb"
@@ -250,7 +251,7 @@ func milvusMergeAndSerialize(req interface{}, bbs []Bb) (string, error) {
 
 	if len(customParams) == 0 {
 		// No custom parameters, serialize directly
-		bytes, err := json.MarshalIndent(req, "", "  ")
+		bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 		if err != nil {
 			return "", fmt.Errorf("failed to marshal Milvus request: %w", err)
 		}
@@ -274,7 +275,7 @@ func milvusMergeAndSerialize(req interface{}, bbs []Bb) (string, error) {
 	}
 
 	// Re-serialize
-	finalBytes, err := json.MarshalIndent(reqMap, "", "  ")
+	finalBytes, err := json.Marshal(reqMap, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal final JSON: %w", err)
 	}
@@ -335,7 +336,7 @@ Create to_milvus_json_test.go file:
 package xb
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"testing"
 )
 

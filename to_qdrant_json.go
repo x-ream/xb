@@ -17,7 +17,8 @@
 package xb
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 )
 
@@ -234,7 +235,7 @@ func (built *Built) toQdrantJSON() (string, error) {
 
 	if len(customParams) == 0 {
 		// No custom parameters, serialize directly
-		bytes, err := json.MarshalIndent(req, "", "  ")
+		bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 		if err != nil {
 			return "", fmt.Errorf("failed to marshal Qdrant request: %w", err)
 		}
@@ -258,7 +259,7 @@ func (built *Built) toQdrantJSON() (string, error) {
 	}
 
 	// Re-serialize
-	finalBytes, err := json.MarshalIndent(reqMap, "", "  ")
+	finalBytes, err := json.Marshal(reqMap, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal final JSON: %w", err)
 	}
@@ -778,7 +779,7 @@ func mergeAndSerialize(req interface{}, bbs []Bb) (string, error) {
 
 	if len(customParams) == 0 {
 		// No custom parameters, serialize directly
-		bytes, err := json.MarshalIndent(req, "", "  ")
+		bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 		if err != nil {
 			return "", fmt.Errorf("failed to marshal Qdrant request: %w", err)
 		}
@@ -802,7 +803,7 @@ func mergeAndSerialize(req interface{}, bbs []Bb) (string, error) {
 	}
 
 	// Re-serialize
-	finalBytes, err := json.MarshalIndent(reqMap, "", "  ")
+	finalBytes, err := json.Marshal(reqMap, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal final JSON: %w", err)
 	}

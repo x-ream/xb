@@ -18,7 +18,8 @@
 package xb
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 )
 
@@ -327,7 +328,7 @@ func (c *QdrantCustom) generateInsertJSON(built *Built) (string, error) {
 	points = append(points, point)
 
 	req := QdrantUpsertRequest{Points: points}
-	bytes, err := json.MarshalIndent(req, "", "  ")
+	bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal Qdrant upsert request: %w", err)
 	}
@@ -368,7 +369,7 @@ func (c *QdrantCustom) generateUpdateJSON(built *Built) (string, error) {
 		req.Filter = filter
 	}
 
-	bytes, err := json.MarshalIndent(req, "", "  ")
+	bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal Qdrant update request: %w", err)
 	}
@@ -397,7 +398,7 @@ func (c *QdrantCustom) generateDeleteJSON(built *Built) (string, error) {
 		return "", fmt.Errorf("no delete conditions (points or filter)")
 	}
 
-	bytes, err := json.MarshalIndent(req, "", "  ")
+	bytes, err := json.Marshal(req, jsontext.WithIndent("  "))
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal Qdrant delete request: %w", err)
 	}
